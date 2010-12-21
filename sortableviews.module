@@ -63,40 +63,43 @@ function sortableviews_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 }
 
 /**
+ * Implementation of hook_perm()
+ */
+function sortableviews_perm() {
+    return array('sort views');
+}
+
+/**
  * Implementing hook_menu
  */
 function sortableviews_menu() {
   $items = array();
-  $items['sortableviews.grid'] = array(
-    'title' => 'Sortable Grid',
-    'description' => 'Ajax callback for sortable grid',
-    'page callback' => '_sortableviews_grid',
+  $items['sortableviews/%'] = array(
+    'title' => 'Sortable views ajax call',
+    'description' => 'Ajax callback for sortable views',
+    'page callback' => 'sortableviews_ajax_call',
 //    'page arguments' => array('draggableviews_admin'),
-//    'access arguments' => array('administer site configuration'), // have to adjust this.
-    'type' => MENU_CALLBACK,
-  );
-  $items['sortableviews/list'] = array(
-    'title' => 'Sortable List',
-    'description' => 'Ajax callback for sortable list',
-    'page callback' => '_sortableviews_list',
-//    'page arguments' => array('draggableviews_admin'),
-//    'access arguments' => array('administer site configuration'), // have to adjust this.
-    'type' => MENU_CALLBACK,
-  );
-  $items['sortableviews.table'] = array(
-    'title' => 'Sortable Table',
-    'description' => 'Ajax callback for sortable table',
-    'page callback' => '_sortableviews_table',
-//    'page arguments' => array('draggableviews_admin'),
-//    'access arguments' => array('administer site configuration'), // have to adjust this.
+    'access arguments' => array('sort views'),
     'type' => MENU_CALLBACK,
   );
   return $items;
 }
 
 /**
- * Callback to handle post requests from sortable lists
+ * Callback to handle post requests from sortable views
  */
-function _sortableviews_list () {
+function sortableviews_ajax_call($style_type) {
+
+    switch ($style_type){
+        case "grid":
+            print 'grid';
+            break;
+        case "list":
+            return t('Testing callbacks');
+            break;
+        case "table":
+            print "table";
+            break;
+    }
     
 }

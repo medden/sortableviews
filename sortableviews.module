@@ -98,5 +98,5 @@ function sortableviews_menu() {
  * Callback to handle post requests from sortable lists
  */
 function _sortableviews_list () {
-    drupal_add_js(alert("YES"));
+    
 }

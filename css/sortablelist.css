@@ -1,0 +1,47 @@
+.view td
+{
+  vertical-align: top;
+}
+
+.sortablelist
+{
+
+}
+.sortablelist li.views-row
+{
+  float: left;
+  position: relative;
+  width: 22%;
+  height: 250px;
+  border: 3px solid #ddd;
+  background-color: #fff;
+/*  background: white;*/
+/*  padding: 4px;*/
+  cursor: move;
+}
+.sortablelist li.ui-state-highlight
+{
+  float: left;
+  border: 3px dashed #ddd;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+
+  background: #fff;
+}
+
+.sortablelist li .handle
+{
+  display: none;
+}
+.sortablelist li:hover .handle
+{
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 5px;
+  left: 5px;
+  background: url('sort.png') top center no-repeat transparent;
+/*  margin: 5px 0px 0px 5px;*/
+  display: block;
+}

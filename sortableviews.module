@@ -1,0 +1,102 @@
+<?php
+// $Id$
+/**
+ * @file
+ * Sortable Views is a style plugin for Views.
+ * This module makes it possible to create views and sort items using
+ * drag and drop handling.
+ */
+
+/**
+ * Display help and module information 
+ *
+ * @param @path
+ *   Which path of the site we're displaying help.
+ * @param arg
+ *   Array that holds the current path as would be returned from arg() function.
+ * @return
+ *   Help text for the path.
+ */
+function sortableviews_help($path, $arg) {
+  $output = '';
+  switch ($path) {
+    case "admin/help#sortableviews":
+      $output = '<p>'. t("This module makes it possible to sort the order of a view using drag and drop handling.") .'</p>';
+      break;
+  }
+  return $output;
+}
+
+/**
+ * Temporarily add js and css file(s) in the beginning of the module. Later place them contextual.
+ */
+/**
+ * Implementing hook_init
+ */
+function sortableviews_init() {
+    // This only works in a function. Later I should call it only on the page where I need it.
+    jquery_ui_add('ui.sortable');  // For a single file
+
+
+}
+
+/**
+ * Implementing hook_nodeapi
+ */
+function sortableviews_views_api() {
+    return array(
+        'api' => 2,
+        'path' => drupal_get_path('module', 'sortableviews') .'/views',
+    );
+}
+
+/**
+ * Implementing hook_nodeapi
+ */
+function sortableviews_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  // Remove nodes from the structure if they are deleted.
+  if ($op == 'delete') {
+    db_query('DELETE FROM {sortablegrid} WHERE nid = %d', $node->nid);
+    db_query('DELETE FROM {sortablelist} WHERE nid = %d', $node->nid);
+    db_query('DELETE FROM {sortabletable} WHERE nid = %d', $node->nid);
+  }
+}
+
+/**
+ * Implementing hook_menu
+ */
+function sortableviews_menu() {
+  $items = array();
+  $items['sortableviews.grid'] = array(
+    'title' => 'Sortable Grid',
+    'description' => 'Ajax callback for sortable grid',
+    'page callback' => '_sortableviews_grid',
+//    'page arguments' => array('draggableviews_admin'),
+//    'access arguments' => array('administer site configuration'), // have to adjust this.
+    'type' => MENU_CALLBACK,
+  );
+  $items['sortableviews/list'] = array(
+    'title' => 'Sortable List',
+    'description' => 'Ajax callback for sortable list',
+    'page callback' => '_sortableviews_list',
+//    'page arguments' => array('draggableviews_admin'),
+//    'access arguments' => array('administer site configuration'), // have to adjust this.
+    'type' => MENU_CALLBACK,
+  );
+  $items['sortableviews.table'] = array(
+    'title' => 'Sortable Table',
+    'description' => 'Ajax callback for sortable table',
+    'page callback' => '_sortableviews_table',
+//    'page arguments' => array('draggableviews_admin'),
+//    'access arguments' => array('administer site configuration'), // have to adjust this.
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Callback to handle post requests from sortable lists
+ */
+function _sortableviews_list () {
+    drupal_add_js(alert("YES"));
+}

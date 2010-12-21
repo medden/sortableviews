@@ -1,0 +1,7 @@
+;id;
+name = "Sortable Views"
+description = "Makes views sortable using drag & drop."
+core = 6.x
+package = Views
+dependencies[] = views
+dependencies[] = jquery_ui

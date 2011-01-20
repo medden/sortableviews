@@ -23,8 +23,8 @@ function sortableviews_uninstall() {
  * Implementation of hook_schema().
  */
 function sortableviews_schema() {
-    $schema['sortablelist'] = array(
-        'description' => t('Saves the order of sortable lists'),
+    $schema['sortableviews_structure'] = array(
+        'description' => t('Saves the order of sortable views'),
         'fields' => array(
             'view_name' => array(
                 'description' => t('Makes the order unique for each view'),
@@ -35,6 +35,13 @@ function sortableviews_schema() {
             ),
             'display_name' => array(
                 'description' => t('Makes the order unique for each display'),
+                'type' => 'varchar',
+                'length' => 32,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+            'display_style' => array(
+                'description' => t('What display style this uses'), // not even sure I need this.
                 'type' => 'varchar',
                 'length' => 32,
                 'not null' => TRUE,
@@ -57,72 +64,5 @@ function sortableviews_schema() {
         'primary key' => array('nid', 'view_name', 'display_name'),
     );
 
-    $schema['sortablegrid'] = array(
-        'description' => t('Saves the order of sortable grids'),
-        'fields' => array(
-            'view_name' => array(
-                'description' => t('Makes the order unique for each view'),
-                'type' => 'varchar',
-                'length' => 32,
-                'not null' => TRUE,
-                'default' => '',
-            ),
-            'display_name' => array(
-                'description' => t('Makes the order unique for each display'),
-                'type' => 'varchar',
-                'length' => 32,
-                'not null' => TRUE,
-                'default' => '',
-            ),
-            'nid' => array(
-                'description' => t('Saves the node ID'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-            ),
-            'position' => array(
-                'description' => t('Saves the position value'),
-                'type' => 'int',
-                'unsigned' => FALSE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-        ),
-        'primary key' => array('nid', 'view_name', 'display_name'),
-    );
-
-    $schema['sortabletable'] = array(
-        'description' => t('Saves the order of sortable tables'),
-        'fields' => array(
-            'view_name' => array(
-                'description' => t('Makes the order unique for each view'),
-                'type' => 'varchar',
-                'length' => 32,
-                'not null' => TRUE,
-                'default' => '',
-            ),
-            'display_name' => array(
-                'description' => t('Makes the order unique for each display'),
-                'type' => 'varchar',
-                'length' => 32,
-                'not null' => TRUE,
-                'default' => '',
-            ),
-            'nid' => array(
-                'description' => t('Saves the node ID'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-            ),
-            'position' => array(
-                'description' => t('Saves the position value'),
-                'type' => 'int',
-                'unsigned' => FALSE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-        ),
-        'primary key' => array('nid', 'view_name', 'display_name'),
-    );
-    return $schema;
+  return $schema;
 }

@@ -88,40 +88,29 @@ function sortableviews_views_data() {
 
     // don't know what I'm doing here. just copying
     foreach ($base_tables AS $base_field => $base_table) {
-//        for ($i = 0; $i < 2; $i++) {
-            $data['sortableviews_structure_'. $base_table . $i]['table'] = array(
+
+            $data['sortableviews_structure_'. $base_table]['table'] = array(
                 'group' => t('SortableViews'),
                 'join' => array(
                     $base_table => array(
                         'table' => 'sortableviews_structure',
                         'left_field' => $base_field,
                         'field' => 'nid',
-                        'extra' => array(
-                            array(
-                                'field' => 'delta',
-                                'operator' => '=',
-                                'value' => $i,
-                                'numeric' => TRUE,
-                            ),
-                        ),
                     ),
                 ),
             );
-            $data['sortableviews_structure_'. $base_table . $i]['value'. $i] = array(
+            $data['sortableviews_structure_'. $base_table]['value'] = array(
                 'real field' => 'value',
                 'title' => t('Order'),
                 'field' => array(
                     'handler' => 'views_handler_field_sortableviews_structure',
                     'help' => t('This value provided by sortableviews is unique for each view.'),
-                    'sortableviews_delta' => $i,
-                ),
+                  ),
             );
-            $data['sortableviews_structure_'. $base_table . $i]['value'. $i]['sort'] = array(
+            $data['sortableviews_structure_'. $base_table]['value']['sort'] = array(
                     'handler' => 'views_handler_sort_sortableviews_structure',
                     'help' => t('Sort by value'),
             );
-//        }
-//  }
     }
 
     return $data;
@@ -131,6 +120,7 @@ function sortableviews_views_data() {
  * Implementing hook_views_query_alter
  */
 function sortableviews_views_query_alter(&$view, &$query) {
+    dsm($view);
     dsm($query);
   $exists = FALSE;
 //  for ($i = 0; $i < 2; $i++) {

@@ -19,9 +19,16 @@ function template_preprocess_sortablelist_view(&$vars) {
     drupal_add_js($module_path .'/js/sortablelist.js');
     drupal_add_css($module_path .'/css/sortablelist.css');
 
-    // attempt to create a url for javascript.
-//    $opts = array('absolute' => TRUE);
 
+    // get views name
+    $views_name = $vars['view']->name;
+    // get views display name
+    $views_display = $vars['view']->current_display;
+
+    // send gathered info to js
+    drupal_add_js( array('sortablelist' => array('views_name' => $views_name,
+                                                 'views_display' => $views_display,
+                                                 'views_type' => 'list')), 'setting');
 
     // extract all nid's listed in the views results.
     $results = $vars['view']->result;

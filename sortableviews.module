@@ -74,11 +74,11 @@ function sortableviews_perm() {
  */
 function sortableviews_menu() {
   $items = array();
-  $items['sortableviews/%'] = array(
+  $items['sortableviews'] = array(
     'title' => 'Sortable views ajax call',
     'description' => 'Ajax callback for sortable views',
     'page callback' => 'sortableviews_ajax_call',
-//    'page arguments' => array('draggableviews_admin'),
+//    'page arguments' => array('grid','list','table'),
     'access arguments' => array('sort views'),
     'type' => MENU_CALLBACK,
   );
@@ -87,19 +87,31 @@ function sortableviews_menu() {
 
 /**
  * Callback to handle post requests from sortable views
+ * @param string $style_type To specify what style makes the ajax call.
  */
-function sortableviews_ajax_call($style_type) {
+function sortableviews_ajax_call($style_type = '') {
+
+    $order = $_POST['nid'];
+    $views_name = $_POST['views_name'];
+    $views_display = $_POST['views_display'];
 
     switch ($style_type){
         case "grid":
-            print 'grid';
+            drupal_json(array('blah' => 'grid'));
             break;
         case "list":
-            return t('Testing callbacks');
+//            view_name display_name nid position
+            db_query("DELETE FROM {sortablelist} WHERE view_name='%s' AND display_name='%s'", $views_name, $views_display);
+            foreach($order as $position => $nid){
+                db_query("INSERT INTO {sortablelist}(view_name, display_name, nid, position) VALUES('%s', '%s', %d, %d)", $views_name, $views_display, $nid, $position);
+            }
+
+
+            drupal_json(array('blah' => 'list', 'post' => $order, 'views_name' => $views_name));
             break;
         case "table":
-            print "table";
+            drupal_json(array('blah' => 'table'));
             break;
     }
-    
+//    drupal_json(array('blah' => 'blah'));
 }

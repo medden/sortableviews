@@ -5,3 +5,4 @@ core = 6.x
 package = Views
 dependencies[] = views
 dependencies[] = jquery_ui
+dependencies[] = draggableviews

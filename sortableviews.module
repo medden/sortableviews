@@ -56,7 +56,7 @@ function sortableviews_views_api() {
 function sortableviews_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   // Remove nodes from the structure if they are deleted.
   if ($op == 'delete') {
-    db_query('DELETE FROM {sortableviews_structure} WHERE nid = %d', $node->nid);
+    db_query('DELETE FROM {draggableviews_structure} WHERE nid = %d', $node->nid);
   }
 }
 
@@ -99,9 +99,9 @@ function sortableviews_ajax_call($style_type = '') {
             break;
         case "list":
 //            view_name display_name nid position
-            db_query("DELETE FROM {sortableviews_structure} WHERE view_name='%s' AND display_name='%s'", $views_name, $views_display);
+            db_query("DELETE FROM {draggableviews_structure} WHERE view_name='%s' AND display_name='%s'", $views_name, $views_display);
             foreach($order as $position => $nid){
-                db_query("INSERT INTO {sortableviews_structure}(view_name, display_name, nid, position) VALUES('%s', '%s', %d, %d)", $views_name, $views_display, $nid, $position);
+                db_query("INSERT INTO {draggableviews_structure}(view_name, nid, delta, args, value, display_name) VALUES('%s', %d, %d, %d, %d, '%s')", $views_name, $nid, null, '', $position, $views_display);
             }
 
 

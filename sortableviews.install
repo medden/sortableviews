@@ -9,60 +9,27 @@
  * Implementation of hook_install().
  */
 function sortableviews_install() {
-    drupal_install_schema('sortableviews');
-}
-/**
- * Implementation of hook_uninstall().
- */
-function sortableviews_uninstall() {
-    drupal_uninstall_schema('sortableviews');
-    // + variable_del() ?
-}
-
-/**
- * Implementation of hook_schema().
- */
-function sortableviews_schema() {
-    $schema['sortableviews_structure'] = array(
-        'description' => t('Saves the order of sortable views'),
-        'fields' => array(
-            'view_name' => array(
-                'description' => t('Makes the order unique for each view'),
-                'type' => 'varchar',
-                'length' => 32,
-                'not null' => TRUE,
-                'default' => '',
-            ),
-            'display_name' => array(
+//    drupal_install_schema('sortableviews');
+                $display_name = array(
                 'description' => t('Makes the order unique for each display'),
                 'type' => 'varchar',
                 'length' => 32,
                 'not null' => TRUE,
                 'default' => '',
-            ),
-            'display_style' => array(
-                'description' => t('What display style this uses'), // not even sure I need this.
-                'type' => 'varchar',
-                'length' => 32,
-                'not null' => TRUE,
-                'default' => '',
-            ),
-            'nid' => array(
-                'description' => t('Saves the node ID'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-            ),
-            'position' => array(
-                'description' => t('Saves the position value'),
-                'type' => 'int',
-                'unsigned' => FALSE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-        ),
-        'primary key' => array('nid', 'view_name', 'display_name'),
-    );
+            );
 
-  return $schema;
+    $ret = array();
+    db_add_field($ret, 'draggableviews_structure', 'display_name', $display_name );
+    return $ret;
 }
+/**
+ * Implementation of hook_uninstall().
+ */
+function sortableviews_uninstall() {
+    $ret = array();
+    db_drop_field($ret, 'draggableviews_structure', 'display_name');
+    return $ret;
+//    drupal_uninstall_schema('sortableviews');
+    // + variable_del() ?
+}
+

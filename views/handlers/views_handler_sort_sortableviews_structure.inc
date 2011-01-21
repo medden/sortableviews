@@ -8,6 +8,6 @@
 /**
  * Sort handler
  */
-class views_handler_sort_sortableviews_structure extends views_handler_sort {
-    
-}
+//class views_handler_sort_sortableviews_structure extends views_handler_sort_draggableviews_structure {
+//
+//}

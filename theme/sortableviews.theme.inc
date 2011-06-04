@@ -39,9 +39,9 @@ function template_preprocess_sortablelist_view(&$vars) {
     endforeach;
 
     $vars['node_ids'] = $node_ids;
-    dsm($node_ids);
-    dsm($results);
-    dsm($vars);
+    // dsm($node_ids);
+    // dsm($results);
+    // dsm($vars);
 }
 
 /**
@@ -55,5 +55,5 @@ function template_preprocess_sortabletable_view(&$vars) {
     $module_path = drupal_get_path('module', 'sortableviews');
     drupal_add_js($module_path .'/js/sortabletable.js');
     drupal_add_css($module_path .'/css/sortabletable.css');
-    dsm($vars);
+    //dsm($vars);
 }

@@ -4,8 +4,8 @@ Limitations
 ===========
 
 To do:
-- no pager support
-- only node views
+- pager support
+- only node views? still have to test this.
 - one view per page
 - no detailed options yet
 - no permission settings yet
